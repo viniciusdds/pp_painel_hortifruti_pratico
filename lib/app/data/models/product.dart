@@ -5,7 +5,7 @@ class ProductModel {
   num price;
   String unitOfMeasure;
   String? description;
-  String image;
+  String? image;
 
   bool get isKg => unitOfMeasure == 'KG';
 
@@ -14,7 +14,7 @@ class ProductModel {
     required this.name,
     required this.price,
     required this.unitOfMeasure,
-    required this.image,
+    this.image,
     this.description,
   });
 
@@ -23,7 +23,7 @@ class ProductModel {
     name: json['nome'],
     price: json['preco'],
     unitOfMeasure: json['unidade'],
-    image: json['imagem'],
+    image: json['imagem'] as String?,
     description: json['descricao'],
   );
 }

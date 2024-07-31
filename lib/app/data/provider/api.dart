@@ -23,6 +23,8 @@ class Api extends GetConnect {
   @override
   void onInit() {
     httpClient.baseUrl = 'https://dev.hortifruti.174.138.42.25.getmoss.site/';
+   // httpClient.baseUrl = 'http://10.101.2.71:3333/';
+   // httpClient.baseUrl = 'http://192.168.137.1:3333/';
 
     httpClient.addRequestModifier((Request request) {
       request.headers['Accept'] = 'application/json';

@@ -5,10 +5,48 @@ import 'package:app_painel_hortifruti_pratico/app/modules/user_profile/page.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DashboardPage extends GetView<DashboardController> {
+class DashboardPage extends GetResponsiveView<DashboardController> {
 
   @override
-  Widget build(BuildContext context) {
+  Widget desktop(){
+    return Scaffold(
+      body: Obx(() => Row(
+          children: [
+            NavigationRail(
+                onDestinationSelected: controller.changePageIndex,
+                selectedIndex: controller.currentPageIndex.value,
+                labelType: NavigationRailLabelType.all,
+                leading: const FlutterLogo(
+                  size: 40,
+                  style: FlutterLogoStyle.stacked,
+                ),
+                destinations: const <NavigationRailDestination>[
+                  NavigationRailDestination(
+                      icon: Icon(Icons.explore_outlined),
+                      selectedIcon: Icon(Icons.explore),
+                      label: Text("Início")
+                  ),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.view_list_outlined),
+                      selectedIcon: Icon(Icons.view_list),
+                      label: Text("Produtos")
+                  ),
+                  NavigationRailDestination(
+                      icon: Icon(Icons.person_2_outlined),
+                      selectedIcon: Icon(Icons.person),
+                      label: Text("Configurar")
+                  )
+                ],
+            ),
+            Expanded(child: _body())
+          ],
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget phone() {
     return Scaffold(
         bottomNavigationBar: Obx(
               () => NavigationBar(
@@ -21,28 +59,32 @@ class DashboardPage extends GetView<DashboardController> {
                 selectedIcon: Icon(Icons.explore),
               ),
               NavigationDestination(
-                icon: Icon(Icons.person_outlined),
-                label: 'Meu Perfil',
-                selectedIcon: Icon(Icons.person),
+                icon: Icon(Icons.view_list_outlined),
+                label: 'Produtos',
+                selectedIcon: Icon(Icons.view_list),
               ),
               NavigationDestination(
-                icon: Icon(Icons.view_list_outlined),
-                label: 'Meus Pedidos',
-                selectedIcon: Icon(Icons.view_list),
+                icon: Icon(Icons.person_2_outlined),
+                label: 'Configurar',
+                selectedIcon: Icon(Icons.person),
               ),
             ],
           ),
         ),
         body: Obx(
-              () => IndexedStack(
-            index: controller.currentPageIndex.value,
-            children: [
-              HomePage(),
-              UserProfilePage(),
-              OrderListPage(),
-            ],
-          ),
+           () => _body()
         )
     );
+  }
+
+  IndexedStack _body() {
+    return  IndexedStack(
+              index: controller.currentPageIndex.value,
+              children: [
+                HomePage(),
+                UserProfilePage(),
+                OrderListPage(),
+              ],
+            );
   }
 }

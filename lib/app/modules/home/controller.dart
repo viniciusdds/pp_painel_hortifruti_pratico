@@ -9,7 +9,7 @@ class HomeController extends GetxController with StateMixin<List<StoreModel>> {
 
   @override
   void onInit() {
-    // int cityId = Get.find<StorageService>().cityId!;
+    //int cityId = Get.find<StorageService>().cityId!;
     int cityId = 1;
 
     _repository.getStores(cityId).then((data) {

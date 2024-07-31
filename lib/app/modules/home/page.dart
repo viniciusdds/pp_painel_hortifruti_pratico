@@ -11,6 +11,7 @@ class HomePage extends GetView<HomeController> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Hortifruti Prático'),
+          centerTitle: true,
           actions: [
             IconButton(
               onPressed: () => Get.toNamed(Routes.selectCity),
@@ -25,7 +26,7 @@ class HomePage extends GetView<HomeController> {
               for (var store in state!)
                 ListTile(
                   title: Text(store.name),
-                  leading: store.image != null
+                  leading: (store.image != null)
                       ? Container(
                     width: 56.0,
                     child: ClipRRect(

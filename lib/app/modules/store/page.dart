@@ -14,7 +14,6 @@ class StorePage extends GetView<StoreController> {
         floatingActionButton: Obx(() {
           if (controller.showCartButton) {
             return FloatingActionButton(
-              child: Icon(Icons.shopping_cart),
               onPressed: () => Get.toNamed(Routes.cart),
               tooltip: 'Ver carrinho',
             );
@@ -36,7 +35,7 @@ class StorePage extends GetView<StoreController> {
                     ),
                     child: Row(
                       children: [
-                        if (state!.image != null)
+                      if (state!.image != null)
                           SizedBox(
                             width: 96.0,
                             height: 96.0,
@@ -55,7 +54,7 @@ class StorePage extends GetView<StoreController> {
                               children: [
                                 Text(
                                   state.name,
-                                  style: Get.textTheme.headline5,
+                                  style: Get.textTheme.headlineSmall,
                                 ),
                                 const SizedBox(height: 8.0,),
                                 StoreStatus(isOnline: state.isOnline)
@@ -93,7 +92,7 @@ class StorePage extends GetView<StoreController> {
                               ListTile(
                                 title: Text(product.name),
                                 subtitle: Text(NumberFormat.simpleCurrency().format(product.price) + (product.isKg ? '/kg' : '')),
-                                leading: product.image.isNotEmpty
+                                leading: product.image != null
                                     ? SizedBox(
                                   width: 56.0,
                                   height: 56.0,
@@ -101,7 +100,7 @@ class StorePage extends GetView<StoreController> {
                                     borderRadius: BorderRadius.circular(8.0),
                                     child: FadeInImage.memoryNetwork(
                                       placeholder: kTransparentImage,
-                                      image: product.image,
+                                      image: product.image!,
                                     ),
                                   ),
                                 )

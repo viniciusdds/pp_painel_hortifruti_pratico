@@ -17,7 +17,7 @@ class ProductPage extends GetView<ProductController> {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Column(
             children: [
-              if (product.image.isNotEmpty)
+              if (product.image!.isNotEmpty)
                 Align(
                   child: Container(
                     padding: const EdgeInsets.only(bottom: 8.0),
@@ -25,7 +25,7 @@ class ProductPage extends GetView<ProductController> {
                       borderRadius: BorderRadius.circular(8.0),
                       child: FadeInImage.memoryNetwork(
                         placeholder: kTransparentImage,
-                        image: product.image,
+                        image: product.image!,
                       ),
                     ),
                   ),

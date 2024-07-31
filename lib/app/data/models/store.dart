@@ -25,7 +25,7 @@ class StoreModel {
   factory StoreModel.fromJson(Map<String, dynamic> json) => StoreModel(
     id: json['id'],
     name: json['nome'],
-    image: json['logo'],
+    image: json['logo'] as String?,
     isOnline: json['online'] == 1,
     categories: json['categorias'] == null
         ? []
