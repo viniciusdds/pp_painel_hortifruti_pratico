@@ -20,19 +20,24 @@ import 'package:dio/dio.dart';
 class Api extends GetxService {
 
   //final _storageService = Get.find<StorageService>();
-  final _baseUrl = 'https://dev.hortifruti.174.138.42.25.getmoss.site/';
-  // httpClient.baseUrl = 'http://10.101.2.71:3333/';
-  // httpClient.baseUrl = 'http://192.168.137.1:3333/';
+  //final _baseUrl = 'https://dev.hortifruti.174.138.42.25.getmoss.site/';
+  final _baseUrl = 'http://192.168.137.1:3333/';
+  //final _baseUrl = 'http://10.101.2.71:3333/';
+  //final _baseUrl = 'http://10.101.10.4:3333/';
+  //final _baseUrl = 'http://127.0.0.1:3333/';
   late Dio _dio;
 
   @override
   void onInit() {
     _dio = Dio(BaseOptions(
       baseUrl: _baseUrl,
-      receiveTimeout: const Duration(seconds: 16),
-      connectTimeout: const Duration(seconds: 16),
-      sendTimeout: const Duration(seconds: 16)
+      receiveTimeout: const Duration(seconds: 30),
+      connectTimeout: const Duration(seconds: 30),
+      sendTimeout: const Duration(seconds: 30),
     ));
+
+    // Adiciona o interceptor
+    _dio.interceptors.add(AppInterceptors(_dio));
 
     super.onInit();
   }
