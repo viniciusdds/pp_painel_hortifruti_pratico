@@ -2,7 +2,7 @@ class ProductModel {
 
   int id;
   String name;
-  num price;
+  String price;
   String unitOfMeasure;
   String? description;
   String? image;

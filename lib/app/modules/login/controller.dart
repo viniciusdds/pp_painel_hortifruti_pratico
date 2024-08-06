@@ -7,13 +7,30 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
 
   final formKey = GlobalKey<FormState>();
+
   final _authService = Get.find<AuthService>();
   var emailController = TextEditingController(text: 'cliente@email.com');
-  var passwordController = TextEditingController(text: '123456');
+  var passwordController = TextEditingController(text: '12345678');
   final loading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    print("LoginController created with formKey: $formKey");
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    print("LoginController disposed");
+    super.onClose();
+  }
 
   void login() {
     Get.focusScope!.unfocus();
+
+    print("LoginController created with formKey: $formKey");
 
     if (!formKey.currentState!.validate()) {
       return;
@@ -30,6 +47,7 @@ class LoginController extends GetxController {
         .login(userLoginRequestModel)
         .then((value) {
       Get.offNamed(Routes.dashboard);
+       //Get.back();
     }, onError: (error) {
       Get.dialog(AlertDialog(title: Text(error.toString()),));
     })

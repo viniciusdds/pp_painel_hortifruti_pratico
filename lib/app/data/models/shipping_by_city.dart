@@ -2,7 +2,7 @@ class ShippingByCityModel {
 
   int id;
   String name;
-  num cost;
+  String cost;
 
   ShippingByCityModel({
     required this.id,

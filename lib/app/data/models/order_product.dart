@@ -3,8 +3,8 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/product.dart';
 class OrderProductModel {
 
   ProductModel product;
-  num quantity;
-  num value;
+  String quantity;
+  String value;
   String? observation;
 
   OrderProductModel({
@@ -14,7 +14,7 @@ class OrderProductModel {
     this.observation,
   });
 
-  num get total => value * quantity;
+  num get total => double.parse(value) * double.parse(quantity);
 
   factory OrderProductModel.fromJson(Map<String, dynamic> json) => OrderProductModel(
     product: ProductModel.fromJson(json['produto']),

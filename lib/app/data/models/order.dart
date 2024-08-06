@@ -2,14 +2,12 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/address.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order_product.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order_status.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/payment_method.dart';
-import 'package:app_painel_hortifruti_pratico/app/data/models/store.dart';
 
 class OrderModel {
 
   String hashId;
-  StoreModel store;
-  num value;
-  num deliveryCost;
+  String value;
+  String deliveryCost;
   AddressModel? address;
   PaymentMethodModel? paymentMethod;
   List<OrderProductModel> productList;
@@ -19,7 +17,6 @@ class OrderModel {
 
   OrderModel({
     required this.hashId,
-    required this.store,
     required this.value,
     required this.deliveryCost,
     this.address,
@@ -32,7 +29,6 @@ class OrderModel {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
       hashId: json['hash_id'],
-      store: StoreModel.fromJson(json['estabelecimento']),
       value: json['valor'],
       deliveryCost: json['custo_entrega'],
       address: json['endereco'] == null

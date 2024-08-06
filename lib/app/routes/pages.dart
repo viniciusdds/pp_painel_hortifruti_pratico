@@ -49,6 +49,7 @@ class RedirectMiddleware extends GetMiddleware {
 
   @override
   RouteSettings? redirect(String? route) {
+    print("Token1: ${Get.find<StorageService>().token}");
     if (Get.find<StorageService>().token == null) {
       return const RouteSettings(name: Routes.login);
     }

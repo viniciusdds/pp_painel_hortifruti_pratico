@@ -17,7 +17,7 @@ class ProductPage extends GetView<ProductController> {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Column(
             children: [
-              if (product.image!.isNotEmpty)
+              if (product.image != null)
                 Align(
                   child: Container(
                     padding: const EdgeInsets.only(bottom: 8.0),

@@ -41,7 +41,7 @@ class ProductController extends GetxController {
     _cartService.addProductToCart(
         CartProductModel(
             product: product.value!,
-            quantity: quantity,
+            quantity: quantity.toStringAsFixed(2),
             observation: observationController.text
         )
     );

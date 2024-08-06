@@ -18,16 +18,11 @@ class OrderPage extends GetView<OrderController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        state!.store.name,
-                        style: Get.textTheme.titleLarge,
-                      ),
-                      const SizedBox(height: 8.0,),
                       Row(
                         children: [
                           Expanded(
                             child: Text(
-                              '#${state.hashId}',
+                              '#${state!.hashId}',
                               style: Get.textTheme.titleMedium,
                             ),
                           ),
@@ -74,7 +69,8 @@ class OrderPage extends GetView<OrderController> {
                   ListTile(
                     title: Text(orderProduct.product.name),
                     leading: _buildProductQuantity(orderProduct),
-                    trailing: Text(NumberFormat.simpleCurrency().format(orderProduct.total)),
+                      trailing: Text(NumberFormat.simpleCurrency().format(
+                          orderProduct.total))
                   ),
                 const SizedBox(height: 8.0,),
                 Padding(
@@ -82,7 +78,7 @@ class OrderPage extends GetView<OrderController> {
                   child: Row(
                     children: [
                       const Expanded(child: Text('Custo de entrega')),
-                      Text(NumberFormat.simpleCurrency().format(state.deliveryCost))
+                      Text(NumberFormat.simpleCurrency().format(double.tryParse(state.deliveryCost)))
                     ],
                   ),
                 ),
@@ -97,7 +93,7 @@ class OrderPage extends GetView<OrderController> {
                           )
                       ),
                       Text(
-                        NumberFormat.simpleCurrency().format(state.value),
+                        NumberFormat.simpleCurrency().format(double.tryParse(state.value)),
                         style: Get.textTheme.titleMedium,
                       )
                     ],
@@ -111,7 +107,7 @@ class OrderPage extends GetView<OrderController> {
 
   Widget _buildProductQuantity(OrderProductModel orderProduct) {
     return Text(
-        NumberFormat.decimalPattern().format(orderProduct.quantity)
+        NumberFormat.decimalPattern().format(double.parse(orderProduct.quantity))
             + (orderProduct.product.isKg ? 'kg' : 'x')
     );
   }

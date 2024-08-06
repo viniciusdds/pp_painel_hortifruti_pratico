@@ -125,6 +125,8 @@ class Api extends GetxService {
   Future<List<OrderModel>> getOrders() async {
     var response = await _dio.get('pedidos');
 
+    print(response.data);
+
     List<OrderModel> data = [];
     for (var order in response.data) {
       data.add(OrderModel.fromJson(order));
