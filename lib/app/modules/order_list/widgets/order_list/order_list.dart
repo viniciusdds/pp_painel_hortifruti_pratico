@@ -1,12 +1,16 @@
+import 'package:app_painel_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/order_list/controller.dart';
-import 'package:app_painel_hortifruti_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+
+typedef ItemSelectedCallback = void Function(OrderModel order);
 
 class OrderListWidget extends StatelessWidget {
   final OrderListController controller = Get.find();
+  final ItemSelectedCallback onItemSelected;
 
-  OrderListWidget({super.key});
+  OrderListWidget(this.onItemSelected, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +22,9 @@ class OrderListWidget extends StatelessWidget {
           for (var order in state!)
             ListTile(
               title: Text('#${order.hashId}'),
-              //subtitle: Text(order.store.name),
+              subtitle: Text(DateFormat("dd/MM/y HH:mm").format(order.createdAt)),
               trailing: Chip(label: Text(order.statusList.last.name)),
-              onTap: () => Get.toNamed(Routes.order.replaceFirst(':id', order.hashId)),
+              onTap: () => onItemSelected(order),
             )
         ],
       ),
