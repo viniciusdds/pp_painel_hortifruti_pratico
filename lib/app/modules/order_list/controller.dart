@@ -12,15 +12,19 @@ class OrderListController extends GetxController with StateMixin<List<OrderModel
 
   @override
   void onInit() {
-    _repository.getOrders().then((data) {
+    loadOrders();
+
+    super.onInit();
+  }
+
+  Future<void> loadOrders() async {
+    await _repository.getOrders().then((data) {
       var status = data.isEmpty ? RxStatus.empty() : RxStatus.success();
       change(data, status: status);
     }, onError: (error) {
       print(error.toString());
       change(null, status: RxStatus.error(error.toString()));
     });
-
-    super.onInit();
   }
 
   void changeOrder(OrderModel order)  {
