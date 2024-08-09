@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:app_painel_hortifruti_pratico/app/core/errors/exception_handlers.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/address.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/city.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order_request.dart';
@@ -120,6 +121,17 @@ class Api extends GetxService {
   // PEDIDOS
   Future postOrder(OrderRequestModel data) async {
     await _dio.post('pedidos', data: jsonEncode(data));
+  }
+
+  Future<List<CategoryModel>> getCategories() async {
+    var response = await _dio.get('estabelecimento/categorias');
+
+    List<CategoryModel> data = [];
+    for (var order in response.data) {
+      data.add(CategoryModel.fromJson(order));
+    }
+
+    return data;
   }
 
   Future<List<OrderModel>> getOrders() async {
