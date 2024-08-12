@@ -1,7 +1,6 @@
 import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
-import 'package:app_painel_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/category_list/repository.dart';
-import 'package:app_painel_hortifruti_pratico/app/widgets/order/order_controller.dart';
+import 'package:app_painel_hortifruti_pratico/app/widgets/category/category_controller.dart';
 import 'package:get/get.dart';
 
 class CategoryListController extends GetxController with StateMixin<List<CategoryModel>> {
@@ -30,7 +29,7 @@ class CategoryListController extends GetxController with StateMixin<List<Categor
 
   void changeCategory(CategoryModel category)  {
     //print("HASH1: ${order.hashId}");
-    // orderSelected.value = order.hashId;
-    // Get.find<OrderController>(tag: 'detail').orderId.value = order.hashId;
+    categorySelected.value = category.id;
+    Get.find<CategoryController>(tag: 'detail').categoryId.value = category.id;
   }
 }

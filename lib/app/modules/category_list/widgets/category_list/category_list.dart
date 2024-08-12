@@ -13,7 +13,7 @@ class CategoryListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
+
     return controller.obx(
           (state) => ListView(
         children: [

@@ -1,6 +1,7 @@
 import 'package:app_painel_hortifruti_pratico/app/modules/category_list/controller.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/category_list/widgets/category_detail/category_detail_widget.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/category_list/widgets/category_list/category_list.dart';
-import 'package:app_painel_hortifruti_pratico/app/widgets/order_detail/order_detail_widget.dart';
+import 'package:app_painel_hortifruti_pratico/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -23,7 +24,7 @@ class CategoryListPage extends GetResponsiveView<CategoryListController> {
             ),
             Flexible(
               flex: 3,
-              child: OrderDetailWidget(),
+              child: CategoryDetailWidget(),
             )
           ],
         )
@@ -34,10 +35,9 @@ class CategoryListPage extends GetResponsiveView<CategoryListController> {
   Widget phone() {
     return Scaffold(
         appBar: AppBar(title: const Text('Meus Produtos')),
-        body: CategoryListWidget((category) => ()
-           //(order) => Get.toNamed(
-             //  Routes.order.replaceFirst(':id', order.hashId)
-          // )
+        body: CategoryListWidget((category) => Get.toNamed(
+               Routes.category.replaceFirst(':category_id', category.id.toString())
+           )
         )
     );
   }

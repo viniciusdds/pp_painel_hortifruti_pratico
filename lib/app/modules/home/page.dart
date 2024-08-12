@@ -12,13 +12,6 @@ class HomePage extends GetView<HomeController> {
         appBar: AppBar(
           title: Text('Hortifruti Prático'),
           centerTitle: true,
-          actions: [
-            IconButton(
-              onPressed: () => Get.toNamed(Routes.selectCity),
-              icon: const Icon(Icons.location_pin),
-              tooltip: 'Alterar cidade',
-            )
-          ],
         ),
         body: controller.obx(
               (state) => ListView(
@@ -54,7 +47,6 @@ class HomePage extends GetView<HomeController> {
                       vertical: 8.0,
                       horizontal: 16.0
                   ),
-                  onTap: () => Get.toNamed(Routes.store.replaceFirst(':id', store.id.toString())),
                 )
             ],
           ),
