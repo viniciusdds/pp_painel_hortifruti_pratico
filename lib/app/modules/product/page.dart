@@ -81,6 +81,7 @@ class ProductPage extends GetView<ProductController> {
                   ],
                 ),
               ),
+              _buildPickAndShowImage(),
               Row(
                 children: [
                   Expanded(
@@ -88,7 +89,7 @@ class ProductPage extends GetView<ProductController> {
                       padding: const EdgeInsets.symmetric(vertical: 16.0),
                       child: ElevatedButton(
                           onPressed: () => controller.onAdd(),
-                          child: const Text('Adicionar no carrinho')
+                          child: const Text('Adicionar')
                       ),
                     ),
                   )
@@ -97,6 +98,47 @@ class ProductPage extends GetView<ProductController> {
             ],
           ),
         )
+    );
+  }
+
+  Widget _buildPickAndShowImage(){
+    return Column(
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(
+            'Imagem do produto',
+            style: Get.textTheme.bodyMedium,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Obx((){
+          if(controller.image.value != null){
+            return _builProductImage(Image.memory(controller.image.value!.bytes!));
+          }
+
+          return const SizedBox();
+        }),
+        Padding(
+          padding: const EdgeInsets.only(top: 8, bottom: 16),
+          child: OutlinedButton(
+            onPressed: controller.pickImage,
+            child: const Text('Selecionar uma imagem'),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _builProductImage(Widget image){
+    return Align(
+      child: Container(
+        constraints: const BoxConstraints(maxHeight: 250),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: image,
+        ),
+      ),
     );
   }
 }
