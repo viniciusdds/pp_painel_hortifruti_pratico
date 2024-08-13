@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:app_painel_hortifruti_pratico/app/core/errors/exception_handlers.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/address.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/category_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/city.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order_request.dart';
@@ -132,6 +133,12 @@ class Api extends GetxService {
     }
 
     return data;
+  }
+
+  //Categorias
+  Future<CategoryModel> postCategory(CategoryRequestModel data) async {
+    var response = await _dio.post('estabelecimento/categorias', data: jsonEncode(data));
+    return CategoryModel.fromJson(response.data);
   }
 
   //Produtos

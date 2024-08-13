@@ -150,10 +150,15 @@ class ProductPage extends GetResponsiveView<ProductController> {
                       return null;
                     },
                   )
-                  )
-                ],
-              ),
-            );
+                ),
+                const SizedBox(height: 8),
+                TextButton(
+                    onPressed: controller.goToNewCategory,
+                    child: Text('Criar uma nova Categoria')
+                )
+              ],
+            ),
+          );
   }
 
   Widget _buildPickAndShowImage(){
