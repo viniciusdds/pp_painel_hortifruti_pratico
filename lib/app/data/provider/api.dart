@@ -8,6 +8,7 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/city.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/order_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/product.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/product_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/store.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_address_request.dart';
@@ -15,9 +16,9 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/user_login_request
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_login_response.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_profile_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/services/storage/service.dart';
-import 'package:get/get.dart';
-
 import 'package:dio/dio.dart';
+import 'package:get/get_state_manager/get_state_manager.dart';
+import 'package:get/instance_manager.dart';
 
 class Api extends GetxService {
 
@@ -142,6 +143,25 @@ class Api extends GetxService {
   }
 
   //Produtos
+  Future<ProductModel> postProduct(ProductRequestModel data) async {
+    var formData = FormData.fromMap(data.toJson());
+    var image = data.image;
+
+    print(data.toJson());
+
+    if(image != null){
+      formData.files.add(
+        MapEntry('imagem', MultipartFile.fromBytes(image.bytes!, filename: image.name))
+      );
+    }
+
+    var response = await _dio.post('estabelecimento/produtos', data: formData);
+
+    print(response.data);
+
+    return ProductModel.fromJson(response.data);
+  }
+
   Future<List<ProductModel>> getProducts(int categoryId) async {
     var response = await _dio.get('estabelecimento/produtos?categoria_id=$categoryId');
 

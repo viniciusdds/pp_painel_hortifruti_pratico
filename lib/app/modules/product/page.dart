@@ -17,38 +17,50 @@ class ProductPage extends GetResponsiveView<ProductController> {
           padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
           child: Column(
             children: [
-              if(screen.isPhone)...[
-                _buildForm(),
-                const SizedBox(height: 16),
-                _buildPickAndShowImage(),
-                _buildSubmit(),
-              ]
-              else ...[
-                Center(
-                  child: Container(
-                    constraints: const BoxConstraints(maxWidth: 800),
-                    child: IntrinsicHeight(
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             // if(screen.isPhone)...[
+            //  ]
+            //  else ...[
+                Visibility(
+                  visible: screen.isPhone,
+                  replacement: Column(
+                    children: [
+                      Center(
+                        child: Container(
+                          constraints: const BoxConstraints(maxWidth: 800),
+                          child: IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                _buildForm(),
-                                _buildSubmit()
+                                Flexible(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      _buildForm(),
+                                      _buildSubmit()
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(width: 16),
+                                Flexible(child: _buildPickAndShowImage())
                               ],
                             ),
                           ),
-                          const SizedBox(width: 16),
-                          Flexible(child: _buildPickAndShowImage())
-                        ],
-                      ),
-                    ),
+                        ),
+                      )
+                    ],
                   ),
-                )
+                  child: Column(
+                    children: [
+                      _buildForm(),
+                      const SizedBox(height: 16),
+                      _buildPickAndShowImage(),
+                      _buildSubmit(),
+                    ],
+                  ),
+                ),
+
               ]
-            ],
+          //  ],
           ),
         )
     );
@@ -60,10 +72,26 @@ class ProductPage extends GetResponsiveView<ProductController> {
           Expanded(
               child: Padding(
                      padding: const EdgeInsets.symmetric(vertical: 16.0),
-                    child: ElevatedButton(
-                    onPressed: () => controller.onAdd(),
-                    child: const Text('Adicionar')
-                  ),
+                    child: Obx(() {
+                      if(controller.loading.isTrue){
+                        return const ElevatedButton(
+                            onPressed: null,
+                            child: SizedBox(
+                                width: 18,
+                                height: 18,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                            )
+                        );
+                      }
+
+                      return ElevatedButton(
+                          onPressed: () => controller.onAdd(),
+                          child: const Text('Adicionar')
+                      );
+
+                    }),
                 ),
              )
           ],
@@ -72,6 +100,7 @@ class ProductPage extends GetResponsiveView<ProductController> {
 
   Form _buildForm() {
     return Form(
+              key: controller.formKey,
               child: Column(
                 children: [
                   TextFormField(
@@ -118,6 +147,7 @@ class ProductPage extends GetResponsiveView<ProductController> {
                       SizedBox(
                         width: 150,
                         child: DropdownButtonFormField(
+                            value: controller.unitOfMeasure.value,
                             decoration: const InputDecoration(
                               labelText: 'Unidade'
                             ),
@@ -125,9 +155,7 @@ class ProductPage extends GetResponsiveView<ProductController> {
                                 value: unit,
                                 child: Text(unit)
                             )).toList(),
-                            onChanged: (value){
-
-                            }
+                            onChanged: controller.changeUnitOfMeasure
                         ),
                       ),
                     ],
@@ -138,7 +166,7 @@ class ProductPage extends GetResponsiveView<ProductController> {
                       value: category.id,
                       child: Text(category.name),
                     )).toList(),
-                    onChanged: controller.changeCategory,
+                    onChanged: controller.changeCategory!,
                     decoration: const InputDecoration(
                         labelText: 'Categoria'
                     ),

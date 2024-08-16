@@ -84,7 +84,6 @@ class DashboardPage extends GetResponsiveView<DashboardController> {
                 OrderListPage(),
                 CategoryListPage(),
                 ProductPage(),
-
               ],
             );
   }

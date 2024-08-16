@@ -4,6 +4,8 @@ import 'package:app_painel_hortifruti_pratico/app/modules/category_list/reposito
 import 'package:app_painel_hortifruti_pratico/app/modules/dashboard/controller.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/order_list/controller.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/order_list/repository.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/product/controller.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/product/repository.dart';
 import 'package:get/get.dart';
 
 class DashboardBinding implements Bindings {
@@ -13,5 +15,6 @@ class DashboardBinding implements Bindings {
     Get.lazyPut<DashboardController>(() => DashboardController());
     Get.lazyPut<CategoryListController>(() => CategoryListController(CategoryListRepository(Get.find<Api>())));
     Get.lazyPut<OrderListController>(() => OrderListController(OrderListRepository(Get.find<Api>())));
+    Get.lazyPut<ProductController>(() => ProductController(ProductRepository(Get.find<Api>())));
   }
 }
