@@ -1,5 +1,6 @@
 import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/category_list/controller.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/edit_category/edit_category_controller.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/edit_category/edit_category_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,14 +27,35 @@ class CategoryListWidget extends StatelessWidget {
                 trailing: PopupMenuButton<String>(
                   onSelected: (value){
                      if(value == 'edit'){
-                       Get.dialog(EditCategoryWidget(
-                         categoryId: controller.categorySelected.value == null
-                             ? category.id
-                             : controller.categorySelected.value!,
-                         nameCategory: category.name,
-                       ));
+                         Get.dialog(EditCategoryWidget(
+                           categoryId: controller.categorySelected.value == null
+                               ? category.id
+                               : controller.categorySelected.value!,
+                           nameCategory: category.name,
+                         ));
                      }else{
-                       print('Apagar ${category.name}');
+                         Get.dialog(
+                           AlertDialog(
+                             title: Text(
+                                'Deseja remover a categoria ${category.name}?',
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold
+                                ),
+                             ),
+                             scrollable: true,
+                             actions: [
+                               TextButton(
+                                   onPressed: () => Get.back(),
+                                   child: Text('Cancelar')
+                               ),
+                               TextButton(
+                                   onPressed: () => controller.removeCategory(category.id),
+                                   child: Text('Confirmar')
+                               ),
+                             ],
+                           )
+                         );
                      }
                   },
                 itemBuilder: (BuildContext context){

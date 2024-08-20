@@ -1,6 +1,9 @@
 import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/category_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/category_list/repository.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/product/controller.dart';
 import 'package:app_painel_hortifruti_pratico/app/widgets/category/category_controller.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CategoryListController extends GetxController with StateMixin<List<CategoryModel>> {
@@ -31,5 +34,23 @@ class CategoryListController extends GetxController with StateMixin<List<Categor
     //print("HASH1: ${order.hashId}");
     categorySelected.value = category.id;
     Get.find<CategoryController>(tag: 'detail').categoryId.value = category.id;
+  }
+
+  void removeCategory(int id) {
+
+    var categoryRequest = CategoryRequestModel(
+        id: id,
+        name: ''
+    );
+
+    _repository.deleteCategory(categoryRequest).then((category) async {
+
+      final categoryListController = Get.find<CategoryListController>();
+      await categoryListController.loadOrders();
+
+      Get.back();
+    }, onError: (error){
+      Get.dialog(AlertDialog(title: Text(error.toString())));
+    });
   }
 }

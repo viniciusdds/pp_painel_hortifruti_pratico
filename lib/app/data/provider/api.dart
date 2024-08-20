@@ -147,6 +147,10 @@ class Api extends GetxService {
     return CategoryModel.fromJson(response.data);
   }
 
+  Future deleteCategory(CategoryRequestModel data) async {
+    var response = await _dio.delete('estabelecimento/categorias/${data.id}');
+  }
+
   //Produtos
   Future<ProductModel> postProduct(ProductRequestModel data) async {
     var formData = FormData.fromMap(data.toJson());
