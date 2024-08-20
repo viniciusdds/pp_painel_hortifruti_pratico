@@ -213,11 +213,19 @@ class ProductPage extends GetResponsiveView<ProductController> {
             return _buildProductImage(Image.memory(controller.image.value!.bytes!));
           }
 
-          print(controller.currentImage.value);
-
           if(controller.currentImage.value?.isNotEmpty ?? false){
             return Column(
               children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 8, bottom:  16),
+                  child: OutlinedButton(
+                    onPressed: controller.onDeleteImage,
+                    child: const Text('Excluir imagem'),
+                    style: OutlinedButton.styleFrom(
+                      foregroundColor: Colors.red
+                    ),
+                  ),
+                ),
                 _buildProductImage(
                  FadeInImage.memoryNetwork(
                      placeholder: kTransparentImage,

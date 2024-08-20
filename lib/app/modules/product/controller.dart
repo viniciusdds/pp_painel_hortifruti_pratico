@@ -2,6 +2,7 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/category.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/product.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/product_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/product/repository.dart';
+import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/delete_product_image/delete_product_image_widget.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/new_category/new_category_widget.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
@@ -74,6 +75,16 @@ class ProductController extends GetxController {
     if(result != null && result.files.isNotEmpty){
       image.value = result.files.first;
       print(image.value);
+    }
+  }
+  
+  void onDeleteImage() async {
+    var result = await Get.dialog(DeleteProductImageWidget(), arguments: product.value);
+
+    if(result is bool && result == true){
+      currentImage.value = '';
+
+      print('Imagem do produto deletada');
     }
   }
 
