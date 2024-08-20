@@ -142,6 +142,11 @@ class Api extends GetxService {
     return CategoryModel.fromJson(response.data);
   }
 
+  Future<CategoryModel> putCategory(CategoryRequestModel data) async {
+    var response = await _dio.put('estabelecimento/categorias/${data.id}', data: jsonEncode(data));
+    return CategoryModel.fromJson(response.data);
+  }
+
   //Produtos
   Future<ProductModel> postProduct(ProductRequestModel data) async {
     var formData = FormData.fromMap(data.toJson());
@@ -156,8 +161,6 @@ class Api extends GetxService {
     }
 
     var response = await _dio.post('estabelecimento/produtos', data: formData);
-
-    print(response.data);
 
     return ProductModel.fromJson(response.data);
   }

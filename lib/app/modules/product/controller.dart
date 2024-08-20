@@ -138,8 +138,6 @@ class ProductController extends GetxController {
 
     loading(true);
 
-    //print("Update ${image.value}");
-
     _repository.putProduct(productRequest).then((product) async {
       Get.back();
       print('product updated');

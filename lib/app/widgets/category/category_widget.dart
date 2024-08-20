@@ -38,13 +38,6 @@ class CategoryWidget extends StatelessWidget {
                  Get.delete<ProductController>();
                  Get.toNamed(Routes.product, arguments: {'product': product});
                },
-
-               // => Get.toNamed(
-               //     Routes.product,
-               //     arguments: {
-               //       'product': product
-               //     }
-               // ),
              )
          ],
        ),
