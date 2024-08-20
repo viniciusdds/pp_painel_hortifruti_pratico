@@ -44,6 +44,10 @@ class ProductController extends GetxController {
       categoryId.value = product.value!.categoryId;
       currentImage.value = product.value!.image;
 
+    }else if(Get.parameters['categoryId'] != null && Get.parameters['categoryId']!.isNotEmpty){
+      print(Get.parameters['categoryId']!);
+      categoryId.value = int.parse(Get.parameters['categoryId']!);
+      title = 'Novo Produto';
     }else{
       title = 'Novo Produto';
     }
