@@ -1,4 +1,5 @@
 
+import 'package:app_painel_hortifruti_pratico/app/modules/product/controller.dart';
 import 'package:app_painel_hortifruti_pratico/app/routes/routes.dart';
 import 'package:app_painel_hortifruti_pratico/app/widgets/category/category_controller.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +34,17 @@ class CategoryWidget extends StatelessWidget {
                  ),
                )
                    : null,
-               onTap: () => Get.toNamed(
-                   Routes.product,
-                   arguments: {
-                     'product': product
-                   }
-               ),
+               onTap: () {
+                 Get.delete<ProductController>();
+                 Get.toNamed(Routes.product, arguments: {'product': product});
+               },
+
+               // => Get.toNamed(
+               //     Routes.product,
+               //     arguments: {
+               //       'product': product
+               //     }
+               // ),
              )
          ],
        ),

@@ -1,6 +1,7 @@
 import 'package:app_painel_hortifruti_pratico/app/modules/product/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 class ProductPage extends GetResponsiveView<ProductController> {
 
@@ -10,7 +11,7 @@ class ProductPage extends GetResponsiveView<ProductController> {
 
     return Scaffold(
         appBar: AppBar(
-          title: Text('Novo Produto'),
+          title: Text(controller.title),
           centerTitle: true,
         ),
         body: SingleChildScrollView(
@@ -86,9 +87,16 @@ class ProductPage extends GetResponsiveView<ProductController> {
                         );
                       }
 
-                      return ElevatedButton(
-                          onPressed: () => controller.onAdd(),
-                          child: const Text('Adicionar')
+                      return Visibility(
+                        visible: controller.editing.isTrue,
+                        replacement: ElevatedButton(
+                            onPressed: controller.onAdd,
+                            child: const Text('Adicionar')
+                        ),
+                        child: ElevatedButton(
+                            onPressed: controller.onUpdate,
+                            child: const Text('Atualizar')
+                        ),
                       );
 
                     }),
@@ -203,6 +211,21 @@ class ProductPage extends GetResponsiveView<ProductController> {
         Obx((){
           if(controller.image.value != null){
             return _buildProductImage(Image.memory(controller.image.value!.bytes!));
+          }
+
+          print(controller.currentImage.value);
+
+          if(controller.currentImage.value?.isNotEmpty ?? false){
+            return Column(
+              children: [
+                _buildProductImage(
+                 FadeInImage.memoryNetwork(
+                     placeholder: kTransparentImage,
+                     image: controller.currentImage.value!
+                 )
+                )
+              ],
+            );
           }
 
           return const SizedBox();

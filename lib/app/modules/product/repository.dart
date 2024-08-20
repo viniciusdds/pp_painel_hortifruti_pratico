@@ -11,5 +11,7 @@ class ProductRepository {
   Future<List<CategoryModel>> getCategories() => _api.getCategories();
 
   Future<ProductModel> postProduct(ProductRequestModel productRequest) => _api.postProduct(productRequest);
+
+  Future<ProductModel> putProduct(ProductRequestModel productRequest) => _api.putProduct(productRequest);
 }
 
