@@ -71,6 +71,8 @@ class Api extends GetxService {
   Future<UserModel> getUser() async {
     var response = await _dio.get('auth/me');
 
+    print(response.data);
+
     return UserModel.fromJson(response.data);
   }
 
