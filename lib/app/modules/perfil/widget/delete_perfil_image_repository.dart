@@ -5,5 +5,8 @@ class DeletePerfilImageRepository {
 
   DeletePerfilImageRepository(this._api);
 
+  //deletePerfilImage
+  Future<void> deleteLogo() => _api.deleteLogo();
+
 }
 

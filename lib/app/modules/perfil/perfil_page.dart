@@ -88,9 +88,7 @@ class PerfilPage extends GetResponsiveView<PerfilController> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 10),
                           child: ElevatedButton(
-                              onPressed: (){
-
-                              },
+                              onPressed: controller.submit,
                               child: const Text('Atualizar')
                           ),
                         ),
@@ -162,13 +160,6 @@ class PerfilPage extends GetResponsiveView<PerfilController> {
                       labelText: 'Senha'
                   ),
                   obscureText: true,
-                  validator: ((String? value){
-                    if(value != null && value.isEmpty){
-                      return 'Informe a sua senha';
-                    }
-
-                    return null;
-                  }),
                 ),
               ),
               const SizedBox(

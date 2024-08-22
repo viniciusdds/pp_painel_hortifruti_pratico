@@ -15,6 +15,7 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/user_address_reque
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_login_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_login_response.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_profile_request.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/user_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/services/storage/service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
@@ -223,6 +224,41 @@ class Api extends GetxService {
 
   Future<void> postOrderStatus(String id, int statusId) async {
     await _dio.post('pedidos/$id/statuses', data: jsonEncode({'status_id': statusId}));
+  }
+
+  // Perfil
+  Future<void> deleteLogo() async {
+    await _dio.delete('estabelecimento/logo');
+  }
+
+  Future<void> updatePerfil(UserModelRequest data) async {
+
+      try {
+         // Criação do FormData a partir do objeto UserModelRequest
+         FormData formData = FormData.fromMap({
+           'nome': data.name,
+           'online': data.online,
+           'email': data.email,
+           'password': data.password,
+           if (data.logo != null)
+             'logo':  MultipartFile.fromBytes(
+               data.logo!.bytes!,
+               filename: data.logo!.name,
+             ),
+         });
+
+         // Enviar a requisição PATCH para a API
+         var response = await _dio.patch('/estabelecimento', data: formData);
+
+         // Processar a resposta
+         if (response.statusCode == 200) {
+           print("Update realizado com sucesso: ${response.data}");
+         } else {
+           print("Erro ao atualizar: ${response.statusCode}");
+         }
+     }catch(e){
+       print("Erro na requisição: $e");
+     }
   }
 }
 

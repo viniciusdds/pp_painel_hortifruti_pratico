@@ -23,7 +23,7 @@ class DeletePerfilImageWidget extends StatelessWidget {
             child: Text('Cancelar')
         ),
         Obx(() => TextButton(
-            onPressed: controller.loading.isTrue ? null : () => controller.onSubmit(),
+            onPressed: controller.loading.isTrue ? null : controller.onSubmit,
             child: Text('Excluir')
         )
         )

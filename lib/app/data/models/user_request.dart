@@ -1,13 +1,13 @@
-class UserModel {
-  int? userId;
+import 'package:file_picker/file_picker.dart';
+
+class UserModelRequest {
   String name;
   String email;
   String? password;
-  String? logo;
+  PlatformFile? logo;
   int online;
 
-  UserModel({
-    this.userId,
+  UserModelRequest({
     required this.name,
     required this.email,
     this.password,
@@ -18,20 +18,19 @@ class UserModel {
   // Método para converter o objeto UserModel em um Map<String, dynamic>
   Map<String, dynamic> toJson() {
     return {
-      'id_user': userId,
       'nome': name,
       'email': email,
-      'senha': password,
       'logo': logo,
       'online': online,
+      if(password != null && password!.isNotEmpty)
+        'password': password
     };
   }
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-    userId: json['id_user'],
-    name: json['nome'],
-    email: json['email'],
-    logo: json['logo'],
-    online: json['online'],
+  factory UserModelRequest.fromJson(Map<String, dynamic> json) => UserModelRequest(
+      name: json['nome'],
+      email: json['email'],
+      logo: json['logo'],
+      online: json['online'],
   );
 }

@@ -1,5 +1,6 @@
 import 'package:app_painel_hortifruti_pratico/app/data/models/user.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_profile_request.dart';
+import 'package:app_painel_hortifruti_pratico/app/data/models/user_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/services/auth/service.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/perfil/perfil_repository.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/perfil/widget/delete_perfil_image_widget.dart';
@@ -41,7 +42,7 @@ class PerfilController extends GetxController {
       isOnline.value = data.online == 1 ? true : false;
       currentImage.value = data.logo;
 
-      // change(data, status: RxStatus.success());
+      //change(data, status: RxStatus.success());
       loading(false);
     }, onError: (error) {
       // change(null, status: RxStatus.error(error));
@@ -73,21 +74,20 @@ class PerfilController extends GetxController {
   }
 
   void onDeleteImage() async {
-    // var userModel = UserModel(
-    //   name: nameController.text,
-    //   email: emailController.text,
-    //   online: isOnline.value,
-    //   logo: currentImage.value
-    // );
-    //
-    //
-    //  var result = await Get.dialog(DeletePerfilImageWidget(userModel));
-    //
-    // if(result is bool && result == true){
-    //   currentImage.value = '';
-    //
-    //   print('Imagem do produto deletada');
-    // }
+    var userModel = UserModel(
+      name: nameController.text,
+      email: emailController.text,
+      logo: currentImage.value
+    );
+
+
+     var result = await Get.dialog(DeletePerfilImageWidget(userModel));
+
+    if(result is bool && result == true){
+      currentImage.value = '';
+
+      print('Imagem do produto deletada');
+    }
   }
 
   void submit(){
@@ -97,13 +97,15 @@ class PerfilController extends GetxController {
       return;
     }
 
-    var userProfileRequest = UserProfileRequestModel(
+    var userModel = UserModelRequest(
       name: nameController.text,
       email: emailController.text,
       password: passwordController.text,
+      online: isOnline.value == true ? 1 : 0,
+      logo: image.value
     );
 
-    _repository.putUser(userProfileRequest).then((value){
+    _repository.updatePerfil(userModel).then((value){
       ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
           const SnackBar(content: Text('Seu perfil foi atualizado.'))
       );
