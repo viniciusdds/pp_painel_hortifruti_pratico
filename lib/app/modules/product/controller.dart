@@ -4,6 +4,7 @@ import 'package:app_painel_hortifruti_pratico/app/data/models/product_request.da
 import 'package:app_painel_hortifruti_pratico/app/modules/product/repository.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/delete_product_image/delete_product_image_widget.dart';
 import 'package:app_painel_hortifruti_pratico/app/modules/product/widgets/new_category/new_category_widget.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +13,12 @@ class ProductController extends GetxController {
 
   final ProductRepository _repository;
   ProductController(this._repository);
+
+  final CurrencyTextInputFormatter priceFormatter = CurrencyTextInputFormatter(
+      locale: 'pt_BR',
+      symbol: 'R\$',
+      decimalDigits: 2
+  );
 
   final formKey = GlobalKey<FormState>();
   final product = Rxn<ProductModel>();
@@ -39,7 +46,7 @@ class ProductController extends GetxController {
 
       nameController.text = product.value!.name;
       descricaoController.text = product.value!.description ?? '';
-      priceController.text = product.value!.price.toString();
+      priceController.text = priceFormatter.format(product.value!.price.toString());
       unitOfMeasure.value = product.value!.unitOfMeasure;
       categoryId.value = product.value!.categoryId;
       currentImage.value = product.value!.image;
@@ -102,7 +109,7 @@ class ProductController extends GetxController {
     var productRequest = ProductRequestModel(
       name: nameController.text,
       description: descricaoController.text,
-      price: priceController.text,
+      price:  priceFormatter.getUnformattedValue().toString(),
       unitOfMeasure: unitOfMeasure.value,
       categoryId: categoryId.value!,
       image: image.value
@@ -130,7 +137,7 @@ class ProductController extends GetxController {
         id: product.value!.id,
         name: nameController.text,
         description: descricaoController.text,
-        price: priceController.text,
+        price: priceFormatter.getUnformattedValue().toString(),
         unitOfMeasure: unitOfMeasure.value,
         categoryId: categoryId.value!,
         image: image.value

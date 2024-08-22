@@ -1,4 +1,5 @@
 import 'package:app_painel_hortifruti_pratico/app/modules/product/controller.dart';
+import 'package:currency_text_input_formatter/currency_text_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -137,6 +138,8 @@ class ProductPage extends GetResponsiveView<ProductController> {
                       Flexible(
                         child: TextFormField(
                           controller: controller.priceController,
+                          keyboardType: TextInputType.number,
+                          inputFormatters: [controller.priceFormatter],
                           decoration: const InputDecoration(
                               labelText: 'Preço'
                           ),
