@@ -1,5 +1,4 @@
 import 'package:app_painel_hortifruti_pratico/app/data/models/user.dart';
-import 'package:app_painel_hortifruti_pratico/app/data/models/user_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/provider/api.dart';
 
 class PerfilRepository {

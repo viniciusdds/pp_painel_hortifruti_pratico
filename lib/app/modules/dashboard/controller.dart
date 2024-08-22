@@ -1,3 +1,5 @@
+import 'package:app_painel_hortifruti_pratico/app/data/services/auth/service.dart';
+import 'package:app_painel_hortifruti_pratico/app/routes/routes.dart';
 import 'package:get/get.dart';
 
 class DashboardController extends GetxController {
@@ -11,6 +13,12 @@ class DashboardController extends GetxController {
     if (index != null) {
       currentPageIndex.value = index;
     }
+
+    ever(Get.find<AuthService>().user, (user){
+      if(user == null){
+        Get.offAllNamed(Routes.login);
+      }
+    });
 
     super.onInit();
   }

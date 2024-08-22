@@ -1,3 +1,4 @@
+import 'package:app_painel_hortifruti_pratico/app/core/errors/exception_handlers.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/models/user_login_request.dart';
 import 'package:app_painel_hortifruti_pratico/app/data/services/auth/repository.dart';
@@ -15,7 +16,11 @@ class AuthService extends GetxService {
   @override
   void onInit() async {
     if (_storageService.token != null) {
-      await _getUser();
+      try{
+        await _getUser();
+      } on UnauthorizedException {
+        logout();
+      }
     }
 
     super.onInit();
